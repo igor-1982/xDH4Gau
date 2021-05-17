@@ -8,13 +8,13 @@ except:
     from os.path import isfile
     import sys
     HomeDir    = getenv('HOME')                                         # STRING, Home DIR
-    if isfile('%s/.r5dft_modules_path' %HomeDir):                       # Load Private Modules DIR
-        with open('%s/.r5dft_modules_path'\
+    if isfile('%s/.xdh_modules_path' %HomeDir):                       # Load Private Modules DIR
+        with open('%s/.xdh_modules_path'\
                 %HomeDir,'r') as tmpf:
             ModuDir=tmpf.readline().strip()                              # STRING, PATH of my modules
             sys.path.append(ModuDir)                                     # Append it into "sys.path"
     else:
-        print 'Error in loading \"$HOME/.r5dft_modules_path\" \n'+\
+        print 'Error in loading \"$HOME/.xdh_modules_path\" \n'+\
             'which contains the absolute path for the relevant py modules'
         sys.exit(1)
     from  gaussian_manage  import print_Error

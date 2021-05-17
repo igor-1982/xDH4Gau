@@ -536,8 +536,8 @@ class GauIO:
 
         self.WorkDir    = getcwd().strip()                           # STRING, current DIR 
         self.HomeDir    = getenv('HOME')                             # STRING, Home DIR
-        if isfile('%s/.r5dft_modules_path' %self.HomeDir):           # Load Private Modules DIR
-            tmpf    = file('%s/.r5dft_modules_path'\
+        if isfile('%s/.xdh_modules_path' %self.HomeDir):           # Load Private Modules DIR
+            tmpf    = file('%s/.xdh_modules_path'\
                 %self.HomeDir,'r')
             self.ModuDir=tmpf.readline().strip()                              # STRING, PATH of my modules
             sys.path.append(self.ModuDir)                                     # Append it into "sys.path"
@@ -1189,8 +1189,8 @@ class OptHandle:
 
         self.WorkDir    = getcwd().strip()                           # STRING, Working DIR 
         self.HomeDir    = getenv('HOME')                             # STRING, HOME DIR
-        if isfile('%s/.r5dft_modules_path' %self.HomeDir):           # Load Private Modules DIR
-            tmpf    = file('%s/.r5dft_modules_path'\
+        if isfile('%s/.xdh_modules_path' %self.HomeDir):           # Load Private Modules DIR
+            tmpf    = file('%s/.xdh_modules_path'\
                 %self.HomeDir,'r')
             self.ModuDir=tmpf.readline().strip()                     # STRING, PATH of my modules
             ModuDir=self.ModuDir

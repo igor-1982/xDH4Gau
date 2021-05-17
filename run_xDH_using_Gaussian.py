@@ -15,14 +15,14 @@ __gaussian__   = 16
 
 WorkDir    = os.getcwd().strip()                                 # STRING, current DIR 
 HomeDir    = os.getenv('HOME')                                   # STRING, Home DIR
-if os.path.isfile('%s/.r5dft_modules_path' %HomeDir):            # Load Private Modules DIR
-    tmpf    = file('%s/.r5dft_modules_path'\
+if os.path.isfile('%s/.xdh_modules_path' %HomeDir):            # Load Private Modules DIR
+    tmpf    = file('%s/.xdh_modules_path'\
         %HomeDir,'r')
     ModuDir=tmpf.readline().strip()                              # STRING, PATH of my modules
     sys.path.append(ModuDir)                                     # Append it into "sys.path"
     tmpf.close()
 else:
-    print 'Error for loading \"$HOME/.r5dft_modules_path\" \n'+\
+    print 'Error for loading \"$HOME/.xdh_modules_path\" \n'+\
         'which contains absolute path of personal python modules'
     sys.exit(1)
 if os.path.isfile('%s/version.txt' %ModuDir):                   # Load Private Modules DIR
