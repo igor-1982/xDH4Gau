@@ -1,0 +1,42 @@
+#!/bin/bash
+# Authors :: Igor Ying Zhang and Xin Xu
+# Purpose :: Install the run_xDH package
+# Version :: V1.0(2021-05-16)
+
+modulespath=`pwd`
+
+pypath=`which python2`
+if [[ -z "${pypath}" ]]; then
+    echo ""
+    echo "ERROR:========================================="
+    echo "ERROR: The run_xDH script was implemented based"
+    echo "ERROR: on Python 2, which, however, is not"
+    echo "ERROR: installed in your OS."
+    echo "ERROR: >: which python2"
+    echo "ERROR:========================================="
+    exit
+fi
+
+echo "================================================================================"
+echo "$modulespath" > $HOME/.xdh_modules_path
+echo "1) $HOME/.xdh_modules_path has beed created for modules needed."
+echo " "
+echo "2) `cat ~/.xdh_modules_path`/Gxx_Environment (with xx=03, 09, or 16) are the"
+echo "    interface to the relevant Gaussian packages (G03, G09, or G16)"
+echo "    At least one of the aforementioned Gaussian packages must be installed."
+echo " "
+
+if [ -e $HOME/bin/run_xDH_using_Gaussian.py ]; then
+    rm -f $HOME/bin/run_xDH_using_Gaussian.py
+fi
+ln -s $modulespath/run_xDH_using_Gaussian.py $HOME/bin/run_xDH_using_Gaussian.py
+
+echo $modulespath > $HOME/.xdh_path
+echo "3) $HOME/bin/run_xDH_using_Gaussian.py has been created to link to"
+echo "   $modulespath/run_xDH_using_Gaussian.py"
+echo " "
+echo "Usage :: run_xDH_using_Gaussian.py [options] file."
+echo "Try 'run_xDH_using_Gaussian.py --help for more informations "
+echo "More information could be found in $modulespath/README"
+echo "================================================================================"
+

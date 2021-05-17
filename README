@@ -1,0 +1,74 @@
+                Help menu for run_xDH_using_Gaussian.py
+=>----------------------------------------------------------------------------==
+  #Filename:  run_xDH_using_Gaussian.py
+  #Author  :  Igor Ying Zhang, Xin Xu
+  #Version :  1.0(20210516)
+  #Usage   :  run_xDH_using_Gaussian.py [options] file
+  #           Try 'run_xDH_using_Gaussian.py --help' for more information
+  #Install :  Run './config' in the folder of the python source codes
+  #Purpose :  1) Run XYG3-type doubly hybrid (xDH) calculations using the
+  #              Gaussian package.
+  #              See the paper for more details about the xDH methods: 
+  #                 Zhang, I. Y.; Xu, X. "Exploring the Limits of the XYG3-Type 
+  #                 Doubly Hybrid Approximations for the Main-Group Chemistry: 
+  #                 The XDH@B3LYP Model." 
+  #                 J. Phys. Chem. Lett. 2021, 12, 2638–2644. 
+  #           2) Share the same input format as the standard Gaussian jobs,
+  #              such that the xDH methods (like XYG3) are invoked as
+  #              the standard DFT methods (like B3LYP) in case insensitivity.
+  #Example::
+  #           The B3LYP calculation use the standard Gaussian input as:
+  #           #=========================================================#
+  #           #    %nproc=8                                             #
+  #           #    #p b3lyp/6-311+G(3df,2p) scf=tight                   #
+  #           #                                                         #
+  #           #    CH4 B3LYP calculation                                #
+  #           #                                                         #
+  #           #    0 1                                                  #
+  #           #    c                                                    #
+  #           #    h   1 hc2                                            #
+  #           #    h   1 hc3        2 hch3                              #
+  #           #    h   1 hc4        3 hch4         2 dih4               # 
+  #           #    h   1 hc5        4 hch5         3 dih5               # 
+  #           #                                                         # 
+  #           #    hc2         1.086000                                 # 
+  #           #    hc3         1.086046                                 #
+  #           #    hch3        109.470                                  #
+  #           #    hc4         1.170267                                 #
+  #           #    hch4        104.203                                  #
+  #           #    dih4        127.944                                  #
+  #           #    hc5         1.170393                                 #
+  #           #    hch5        107.454                                  #
+  #           #    dih5       -115.152                                  #
+  #           #                                                         # 
+  #           #=========================================================#
+  #         
+  #           To perform the XYG3 calculation, simply replace the keyword
+  #           of "b3lyp" by "xyg3". The results are collected in the output 
+  #           file with postfix of '.xDH'
+  #           #=========================================================#
+  #           #    %nproc=8                                             #
+  #           #    #p xyg3/6-311+G(3df,2p) scf=tight                    #
+  #           #                                                         #
+  #           #    CH4 XYG3 calculation                                 #
+  #           #                                                         #
+  #           #    0 1                                                  #
+  #           #    c                                                    #
+  #           #    h   1 hc2                                            #
+  #           #    h   1 hc3        2 hch3                              #
+  #           #    h   1 hc4        3 hch4         2 dih4               # 
+  #           #    h   1 hc5        4 hch5         3 dih5               # 
+  #           #                                                         # 
+  #           #    hc2         1.086000                                 # 
+  #           #    hc3         1.086046                                 #
+  #           #    hch3        109.470                                  #
+  #           #    hc4         1.170267                                 #
+  #           #    hch4        104.203                                  #
+  #           #    dih4        127.944                                  #
+  #           #    hc5         1.170393                                 #
+  #           #    hch5        107.454                                  #
+  #           #    dih5       -115.152                                  #
+  #           #                                                         # 
+  #           #=========================================================#
+
+==> More tests could be found in the direction of "Tests"

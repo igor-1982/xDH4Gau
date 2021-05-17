@@ -1,0 +1,18 @@
+Usage   :  run_xDH_using_Gaussian.py [options] FILE
+
+FILE is a Gaussian input with the DFT method being the xDH method (like XYG3, XYGJ-OS, so on)
+The output share the same name of FILE with the postfix of 'xDH'
+
+
+Miscellaneous:
+  -v, --version             display version information and exit
+      --help                display this help text and exit
+
+Output control:
+  -p, --print-level=n       Print option
+                            n=1: only summary results are printed (the default choice)
+                            n=2: more detailed information are printed
+  -g, --gaussian-version=n  The version of the selected Gaussian package
+                            n=03: use Gaussian03
+                            n=09: use Gaussian09
+                            n=16: use Gaussian16 (the default choice)

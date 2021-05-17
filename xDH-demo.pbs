@@ -1,0 +1,14 @@
+#BSUB -J <job-name>
+#BSUB -q <queue-name>
+#BSUB -n <task-number>
+#BSUB -R span[ptile=<task-number-per-node>]
+#BSUB -o <job-name>-%J.out
+
+# run the xDH calculation
+# --print-level=n       n=1: only summary results are printed (the default choice)
+#                       n=2: more detailed information are printed
+# --gaussian-version=n  n=03: use Gaussian03
+#                       n=09: use Gaussian09
+#                       n=16: use Gaussian16 (the default choice)
+run_xDH_using_Gaussian.py --print-level=1 --gaussian-version=16 <input-file>
+

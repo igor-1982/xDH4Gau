@@ -1,0 +1,15 @@
+xDH4Gau=xDH4Gau {
+ main="/share/home/wenxinzy/export/xDH4Gau" {
+  README
+  Usage
+  config
+  run_xDH_using_Gaussian.py
+  version.txt
+  xDH_module.py
+  gaussian_manage.py
+  ChkReplace.py
+  G03_Environment
+  G09_Environment
+  G16_Environment
+ }
+}
