@@ -19,11 +19,12 @@ fi
 
 echo "================================================================================"
 echo "$modulespath" > $HOME/.xdh_modules_path
-echo "1) $HOME/.xdh_modules_path has beed created for modules needed."
+echo "1) $HOME/.xdh_modules_path has beed created to save the absolute path to"
+echo "   the relevant modules."
 echo " "
 echo "2) `cat ~/.xdh_modules_path`/Gxx_Environment (with xx=03, 09, or 16) are the"
-echo "    interface to the relevant Gaussian packages (G03, G09, or G16)"
-echo "    At least one of the aforementioned Gaussian packages must be installed."
+echo "   interface to call the relevant Gaussian packages (G03, G09, and/or G16)."
+echo "   At least one of the aforementioned Gaussian packages must be installed."
 echo " "
 
 if [[ ! -d "${HOME}/bin" ]]; then
