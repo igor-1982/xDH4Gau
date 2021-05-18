@@ -579,9 +579,9 @@ class GauIO:
             name, extension = os.path.splitext(filename)
             self.JobName= name                                       # Name of this job
 
-            if bugctrl>=1:
-                print_String(iout,'Enter the job : \"%s\"'
-                    % self.JobName,2)
+            #if bugctrl>=1:
+            #    print_String(iout,'Enter the job : \"%s\"'
+            #        % self.JobName,2)
 
 
         self.MachineList= []                                         # List, machine commands

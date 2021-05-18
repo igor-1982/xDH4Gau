@@ -38,22 +38,25 @@ def prepare_Info(version):
     info    = ['#Filename:  xDH',
         '#Authors :  Igor Ying Zhang, Xin Xu',
         '#Version :  %s' % version,
-        '#Purpose :  1) Perform XYG3-type doubly hybrid (xDH) calculations using the Gaussian package',
-        '            2) Share the same input and output format as the standard Gaussian jobs',
-        '#Refs :     If you publish the xDH results using the xDH script, please make sure ',
-        '            to cite the references properly',
+        '#Purpose :  1) Perform XYG3-type doubly hybrid (xDH) calculations using the',
+        '               Gaussian package (available for Gaussian 03, 09, and 16).',
+        '            2) Share the same input/output format of the Gaussian package',
+        '#Refs :     If you publish the xDH results using the xDH script, please make',
+        '            sure to cite the references properly',
         '            1) For the original XYG3 method, please cite:',
-        '               Zhang, Y.; Xu, X.; Goddard, W. A. Doubly Hybrid Density Functional for',
-        '               Accurate Descriptions of Nonbond Interactions, Thermochemistry, and',
-        '               Thermochemical Kinetics.',
+        '               Zhang, Y.; Xu, X.; Goddard, W. A. Doubly Hybrid Density',
+        '               Functional for Accurate Descriptions of Nonbond Interactions,',
+        '               Thermochemistry, and Thermochemical Kinetics.',
         '               Proc. Natl. Acad. Sci. USA 2009, 106 (13), 4963-4968.',
         '            2) For the lower-scaling XYGJ-OS method, please cite:',
-        '               Zhang, I. Y.; Xu, X.; Jung, Y.; Goddard, W. A. A Fast Doubly Hybrid Density',
-        '               Functional Method Close to Chemical Accuracy Using a Local Opposite Spin Ansatz.',
+        '               Zhang, I. Y.; Xu, X.; Jung, Y.; Goddard, W. A. A Fast Doubly',
+        '               Hybrid Density Functional Method Close to Chemical Accuracy',
+        '               Using a Local Opposite Spin Ansatz.',
         '               Proc. Natl. Acad. Sci. USA 2011, 108 (50), 19896-19900.',
         '            3) For the family of xDH@B3LYP methods, please cite:',
-        '               Zhang, I. Y.; Xu, X. Exploring the Limits of the XYG3-Type Doubly Hybrid',
-        '               Approximations for the Main-Group Chemistry: The XDH@B3LYP Model.',
+        '               Zhang, I. Y.; Xu, X. Exploring the Limits of the XYG3-Type',
+        '               Doubly Hybrid Approximations for the Main-Group Chemistry:',
+        '               The XDH@B3LYP Model.',
         '               J. Phys. Chem. Lett. 2021, 12, 2638-2644.'\
         ]
     return info
@@ -114,13 +117,13 @@ def parse_input(argv,version):
             try:
                 iprint = int(xkey.strip().split('=')[1])
             except:
-                print('Error in specifying the version of the selected Gaussian package "--print-level"\n')
+                print('Error in specifying the print option "--print-level"\n')
                 print('please use the option of "--help" for more message')
         if xkey.find('--sync-interval=')!=-1:
             try:
                 iprint = int(xkey.strip().split('=')[1])
             except:
-                print('Error in specifying the syncronous interval of the Gaussian output to the xDH output file "--sync-interval"\n')
+                print('Error in specifying the sync interval of the Gaussian output to the xDH output file "--sync-interval"\n')
                 print('please use the option of "--help" for more message')
     return
 
@@ -148,7 +151,9 @@ def run_xDH(argv=None):
         iout    = open('%s.xDH' % Name,'w')
         print_List(iout,__info__,2,'%s' % '-'*76+'==')               # Writing the package info.
 
-    print_String(iout,'Enter the job for "%s"' % argv[1],2)
+    print_String(iout,
+			'Start the job of "%s" using the Gaussian %02i package'
+			% (FileName,__gaussian__),2)
     MainIO    = gaum.GauIO(iout,'%s%s' %(Name,extension),iprint)
 
     MainIO.KickOptionList    = ['extraoverlay','oniom','opt']         # Disable options for xDH

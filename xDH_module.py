@@ -53,7 +53,7 @@ class xDH:
                   }
     SP_OptList  = ['IOP(5/33=1)','NoSymm']
 
-    def __init__(self, IOut, GauIO, OptClass, bugctrl=1, gauversion=16, syninterval=12):
+    def __init__(self, IOut, GauIO, OptClass, bugctrl=1, gauversion=16, syncinterval=12):
         '''\
         Open the current filename, and initialize some variable belonged to current object\
         ''' 
