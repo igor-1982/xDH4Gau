@@ -158,7 +158,7 @@ def run_xDH(argv=None):
 
 
     OptClass    = gaum.OptHandle(iout,MainIO,iprint)
-    R5Class    = xDH.xDH(iout,MainIO,OptClass,iprint,__gaussian__,syninterval)
+    R5Class    = xDH.xDH(iout,MainIO,OptClass,iprint,__gaussian__,syncinterval)
     if not MainIO.CartesianFlag:
         MainIO.collect_Geom()
     #DFTDClass    = gaum.DFTD(iout,MainIO,OptClass,iprint)
