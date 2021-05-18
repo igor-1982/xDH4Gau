@@ -1,7 +1,7 @@
 Usage   :  run_xDH_using_Gaussian.py [options] FILE
 
-FILE is a Gaussian input with the DFT method being the xDH method (like XYG3, XYGJ-OS, so on)
-The output share the same name of FILE with the postfix of 'xDH'
+FILE is a Gaussian input with the DFT method being the xDH method (like XYG3, XYGJ-OS, and so on)
+The output file shares the same name of FILE with the postfix of 'xDH'
 
 
 Miscellaneous:
@@ -16,3 +16,18 @@ Output control:
                             n=03: use Gaussian03
                             n=09: use Gaussian09
                             n=16: use Gaussian16 (the default choice)
+
+
+1) The reference for the original XYG3 method is
+   Zhang, Y.; Xu, X.; Goddard, W. A. Doubly Hybrid Density Functional for
+   Accurate Descriptions of Nonbond Interactions, Thermochemistry, and
+   Thermochemical Kinetics.
+   Proc. Natl. Acad. Sci. USA 2009, 106 (13), 4963-4968.
+2) The reference for the lower-scaling XYGJ-OS method is
+   Zhang, I. Y.; Xu, X.; Jung, Y.; Goddard, W. A. A Fast Doubly Hybrid Density
+   Functional Method Close to Chemical Accuracy Using a Local Opposite Spin Ansatz.
+   Proc. Natl. Acad. Sci. USA 2011, 108 (50), 19896-19900.
+3) The reference for the family of xDH@B3LYP methods is
+   Zhang, I. Y.; Xu, X. Exploring the Limits of the XYG3-Type Doubly Hybrid
+   Approximations for the Main-Group Chemistry: The XDH@B3LYP Model.
+   J. Phys. Chem. Lett. 2021, 12, 2638-2644.

@@ -5,7 +5,13 @@
   #Version :  1.0(20210516)
   #Usage   :  run_xDH_using_Gaussian.py [options] file
   #           Try 'run_xDH_using_Gaussian.py --help' for more information
-  #Install :  Run './config' in the folder of the python source codes
+  #Install :  1) Dependence: python 2.x;
+  #                          Gaussian xx (xx=03, 09, or 16).
+  #           2) Excute '[xDH4Gau]/config'.
+  #           3) Edit '[xDH4Gau]/Gxx_Environment (xx=03, 09, or 16)
+  #              to setup the proper interface of the Gaussian package
+  #              that is installed in your OS.
+  #               
   #Purpose :  1) Run XYG3-type doubly hybrid (xDH) calculations using the
   #              Gaussian package.
   #              See the paper for more details about the xDH methods: 

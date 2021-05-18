@@ -26,14 +26,23 @@ echo "    interface to the relevant Gaussian packages (G03, G09, or G16)"
 echo "    At least one of the aforementioned Gaussian packages must be installed."
 echo " "
 
+if [[ ! -d "${HOME}/bin" ]]; then
+	make -p ${HOME}/bin
+fi
+
 if [ -e $HOME/bin/run_xDH_using_Gaussian.py ]; then
     rm -f $HOME/bin/run_xDH_using_Gaussian.py
 fi
 ln -s $modulespath/run_xDH_using_Gaussian.py $HOME/bin/run_xDH_using_Gaussian.py
-
 echo $modulespath > $HOME/.xdh_path
 echo "3) $HOME/bin/run_xDH_using_Gaussian.py has been created to link to"
 echo "   $modulespath/run_xDH_using_Gaussian.py"
+
+if [[ `echo $PATH|grep -c $HOME/bin` -eq 0 ]]; then
+echo "   Please append '\$HOME/bin' to the environment variable of \$PATH."
+echo "   >: echo \$PATH|grep '\$HOME/bin'"
+fi
+
 echo " "
 echo "Usage :: run_xDH_using_Gaussian.py [options] file."
 echo "Try 'run_xDH_using_Gaussian.py --help for more informations "
