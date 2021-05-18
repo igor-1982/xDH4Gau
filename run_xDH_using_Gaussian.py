@@ -1,4 +1,4 @@
-#!/bin/env python2
+#!/bin/env python3
 #Filename:  run_xDH_using_Gaussian.py
 #Author  :  Igor Ying Zhang, Xin Xu 
 #Purpose :  Run Rung 5th DFT method calculation, based on Gaussian package
@@ -12,21 +12,22 @@ import sys
 __version__    = '1.0(2021)'
 iprint         = 1
 __gaussian__   = 16
+syncinterval  = 6
 
 WorkDir    = os.getcwd().strip()                                 # STRING, current DIR 
 HomeDir    = os.getenv('HOME')                                   # STRING, Home DIR
 if os.path.isfile('%s/.xdh_modules_path' %HomeDir):            # Load Private Modules DIR
-    tmpf    = file('%s/.xdh_modules_path'\
+    tmpf    = open('%s/.xdh_modules_path'\
         %HomeDir,'r')
     ModuDir=tmpf.readline().strip()                              # STRING, PATH of my modules
     sys.path.append(ModuDir)                                     # Append it into "sys.path"
     tmpf.close()
 else:
-    print 'Error for loading \"$HOME/.xdh_modules_path\" \n'+\
-        'which contains absolute path of personal python modules'
+    print(('Error for loading \"$HOME/.xdh_modules_path\" \n'+\
+       'which contains absolute path of personal python modules'))
     sys.exit(1)
 if os.path.isfile('%s/version.txt' %ModuDir):                   # Load Private Modules DIR
-    tmpf    = file('%s/version.txt'\
+    tmpf    = open('%s/version.txt'\
         %ModuDir,'r')
     __version__=tmpf.readline().strip()                      
 else:
@@ -95,6 +96,13 @@ def parse_input(argv,version):
         except:
             print('Error in specifying the version of the selected Gaussian package "-g"\n')
             print('please use the option of "--help" for more message')
+    if '-s' in tmpargv:
+        i = tmpargv.index('-f') + 1
+        try: 
+            syncinterval = int(tmpargv[i])
+        except:
+            print('Error in specifying the syncronous interval of the Gaussian output to the xDH output file "-f"\n')
+            print('please use the option of "--help" for more message')
     for xkey in tmpargv:
         if xkey.find('--gaussian-version=')!=-1:
             try:
@@ -107,6 +115,12 @@ def parse_input(argv,version):
                 iprint = int(xkey.strip().split('=')[1])
             except:
                 print('Error in specifying the version of the selected Gaussian package "--print-level"\n')
+                print('please use the option of "--help" for more message')
+        if xkey.find('--sync-interval=')!=-1:
+            try:
+                iprint = int(xkey.strip().split('=')[1])
+            except:
+                print('Error in specifying the syncronous interval of the Gaussian output to the xDH output file "--sync-interval"\n')
                 print('please use the option of "--help" for more message')
     return
 
@@ -129,9 +143,9 @@ def run_xDH(argv=None):
     __info__ = prepare_Info(__version__)
         
     if isfile('%s.xDH' %Name):                                     # Open the output file
-        iout    = file('%s.xDH' % Name,'a')
+        iout    = open('%s.xDH' % Name,'a')
     else:
-        iout    = file('%s.xDH' % Name,'w')
+        iout    = open('%s.xDH' % Name,'w')
         print_List(iout,__info__,2,'%s' % '-'*76+'==')               # Writing the package info.
 
     print_String(iout,'Enter the job for "%s"' % argv[1],2)
@@ -144,7 +158,7 @@ def run_xDH(argv=None):
 
 
     OptClass    = gaum.OptHandle(iout,MainIO,iprint)
-    R5Class    = xDH.xDH(iout,MainIO,OptClass,iprint,__gaussian__)
+    R5Class    = xDH.xDH(iout,MainIO,OptClass,iprint,__gaussian__,syninterval)
     if not MainIO.CartesianFlag:
         MainIO.collect_Geom()
     #DFTDClass    = gaum.DFTD(iout,MainIO,OptClass,iprint)
@@ -208,13 +222,13 @@ name, extension = os.path.splitext(filename)
 os.chdir(path)
 if os.path.isfile('%s.xDH' %name):
     os.remove('%s.xDH' %name)
-f=file('%s%s' %(name,extension),'r')
+f=open('%s%s' %(name,extension),'r')
 if f.read().lower().find('--link1--')!=-1:  #For InputFile containing "--link1--"
     f.seek(0)
     SperateInputList=re.split('--[Ll][Ii][Nn][Kk]1--',f.read())
     tmpI=0
     for input in SperateInputList:
-        tmpf=file('Link%d.com' %tmpI,'w')
+        tmpf=open('Link%d.com' %tmpI,'w')
         tmpf.write(input.strip())
         tmpf.write(' \n')
         tmpf.write(' \n')

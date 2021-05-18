@@ -1,4 +1,4 @@
-#!/bin/env python2
+#!/bin/env python3
 #Module     :: Gaussian_Manage
 #Authors    :: Ying Zhang and Xin Xu 
 #Purpose    :: 1) Analysis the input file of Gaussian package;
@@ -109,7 +109,7 @@ def print_String(IOut, PString, IPrint, Info=''):
                 BlankFlag = False
             j = 0
             k = j+NN
-            for i in range(NL):
+            for i in range(int(NL)):
                 while BlankFlag and PString[k-1] != ' ':
                     k = k-1
                 StrSplit = [PString[0:k], PString[k:]]
@@ -134,7 +134,7 @@ def print_String(IOut, PString, IPrint, Info=''):
                 BlankFlag = False
             j = 0
             k = j+NN
-            for i in range(NL):
+            for i in range(int(NL)):
                 while BlankFlag and PString[k-1] != ' ':
                     k = k-1
                 StrSplit = [PString[0:k], PString[k:]]
@@ -161,7 +161,7 @@ def print_String(IOut, PString, IPrint, Info=''):
                 BlankFlag = False
             j = 0
             k = j+NN
-            for i in range(NL):
+            for i in range(int(NL)):
                 while BlankFlag and PString[k-1] != ' ':
                     k = k-1
                 StrSplit = [PString[0:k], PString[k:]]
@@ -232,7 +232,7 @@ def print_List(IOut, PList, IPrint, Info=''):
         if NL > 0:
             j = 0
             k = j+NN
-            for i in range(NL):
+            for i in range(int(NL)):
                 while TmpPrint[k-1] != ' ':
                     k = k-1
                 TmpPrint = '\n  '.join([TmpPrint[0:k], TmpPrint[k:]])
@@ -537,19 +537,19 @@ class GauIO:
         self.WorkDir    = getcwd().strip()                           # STRING, current DIR 
         self.HomeDir    = getenv('HOME')                             # STRING, Home DIR
         if isfile('%s/.xdh_modules_path' %self.HomeDir):           # Load Private Modules DIR
-            tmpf    = file('%s/.xdh_modules_path'\
+            tmpf    = open('%s/.xdh_modules_path'\
                 %self.HomeDir,'r')
             self.ModuDir=tmpf.readline().strip()                              # STRING, PATH of my modules
             sys.path.append(self.ModuDir)                                     # Append it into "sys.path"
             tmpf.close()
         else:
-            print 'Error for loading \"$HOME/.d5dft_modules_path\" \n'+\
-                'which contains absolute path of relevant python modules'
+            print(('Error for loading \"$HOME/.xdh_modules_path\" \n'+\
+                'which contains absolute path of relevant python modules'))
             sys.exit(1)
 
         global __version__
         if isfile('%s/version.txt' %self.ModuDir):                   # Load Private Modules DIR
-            tmpf    = file('%s/version.txt'\
+            tmpf    = open('%s/version.txt'\
                 %self.ModuDir,'r')
             __version__=tmpf.readline().strip()                      
         else:
@@ -563,9 +563,9 @@ class GauIO:
                     'Do not open input file for GauIO class',1)
         else:
             try:
-                self.f     = file(self.FileName,'r')                    # Open it
+                self.f     = open(self.FileName,'r')                    # Open it
             except IOError:
-                self.f  = file('Error_%s' %self.FileName,'w')
+                self.f  = open('Error_%s' %self.FileName,'w')
             if self.IPrint>=1:
                 print_String(self.IOut,
                     'Open Gau-Input file "%s" for GauIO class'
@@ -707,9 +707,9 @@ class GauIO:
         #
         #Then to determine the complicated option initialization
         #
-        for key,value in self.MoreOptionDict.items():
+        for key,value in list(self.MoreOptionDict.items()):
             self.MoreOptionDict[key]=0
-        for key,value in self.MoreOptionDict.items():
+        for key,value in list(self.MoreOptionDict.items()):
             for option in self.OptionList:
                 if option.lower().find(key)!=-1:
                     self.MoreOptionDict[key]=1
@@ -1002,9 +1002,9 @@ class GauIO:
         # Now creat a new gaussian input file
         #
         if (self.FileName!=None):
-            wf=file('Job_%s.com' % self.JobName,'w')
+            wf=open('Job_%s.com' % self.JobName,'w')
         else:
-            wf=file('%s.com' % self.ChkName,'w')
+            wf=open('%s.com' % self.ChkName,'w')
         # Form machine commands
         for line in self.MachineList:
             wf.write('%s\n' % line)
@@ -1190,15 +1190,15 @@ class OptHandle:
         self.WorkDir    = getcwd().strip()                           # STRING, Working DIR 
         self.HomeDir    = getenv('HOME')                             # STRING, HOME DIR
         if isfile('%s/.xdh_modules_path' %self.HomeDir):           # Load Private Modules DIR
-            tmpf    = file('%s/.xdh_modules_path'\
+            tmpf    = open('%s/.xdh_modules_path'\
                 %self.HomeDir,'r')
             self.ModuDir=tmpf.readline().strip()                     # STRING, PATH of my modules
             ModuDir=self.ModuDir
             sys.path.append(ModuDir)                                 # Append it into "sys.path"
             tmpf.close()
         else:
-            print 'Error for loading \"$HOME/.d5dft_modules_path\" \n'+\
-                'which contains absolute path of relevant python modules'
+            print(('Error for loading \"$HOME/.xdh_modules_path\" \n'+\
+                'which contains absolute path of relevant python modules'))
             sys.exit(1)
          
         self.Opt        = False                                      # LOGIC for geom. opt. task
@@ -1253,7 +1253,7 @@ class OptHandle:
         if self.Opt:
             if not exists('%s/GeomOpt' % self.WorkDir):
                 mkdir('%s/GeomOpt' % self.WorkDir)
-            tmpf=file('%s/GeomOpt/geom' % self.WorkDir,'w')
+            tmpf=open('%s/GeomOpt/geom' % self.WorkDir,'w')
             tmpf.write('%5i\n' % self.IOClass.NAtom)
             for i in self.IOClass.GeomList:
                 tmpf.write('%s\n' %i)

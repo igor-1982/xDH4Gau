@@ -16,6 +16,8 @@ Output control:
                             n=03: use Gaussian03
                             n=09: use Gaussian09
                             n=16: use Gaussian16 (the default choice)
+  -s, --sync-interval=n     The sync interval (in second) between Gaussian and xDH4Gau output files
+                            n=12 (the default choice)
 
 
 1) The reference for the original XYG3 method is

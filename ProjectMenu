@@ -11,5 +11,6 @@ xDH4Gau=xDH4Gau {
   G03_Environment
   G09_Environment
   G16_Environment
+  xDH-demo.pbs
  }
 }

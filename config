@@ -5,14 +5,14 @@
 
 modulespath=`pwd`
 
-pypath=`which python2`
+pypath=`which python3`
 if [[ -z "${pypath}" ]]; then
     echo ""
     echo "ERROR:========================================="
     echo "ERROR: The run_xDH script was implemented based"
-    echo "ERROR: on Python 2, which, however, is not"
+    echo "ERROR: on Python 3, which, however, is not"
     echo "ERROR: installed in your OS."
-    echo "ERROR: >: which python2"
+    echo "ERROR: >: which python3"
     echo "ERROR:========================================="
     exit
 fi

@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/bin/env python3
 # Module	:: dft_d
 # Authors	:: Igor Ying Zhang, and Xin Xu
 # Purpose	:: To handle dispersion contribution for molecular systems

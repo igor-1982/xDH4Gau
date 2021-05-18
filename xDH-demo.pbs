@@ -10,5 +10,6 @@
 # --gaussian-version=n  n=03: use Gaussian03
 #                       n=09: use Gaussian09
 #                       n=16: use Gaussian16 (the default choice)
-run_xDH_using_Gaussian.py --print-level=1 --gaussian-version=16 <input-file>
+# --sync-interval=n     n=6: the sync interval (in second) between Gaussian and xDH4Gau output files
+run_xDH_using_Gaussian.py --sync-interval=6 --print-level=1 --gaussian-version=16 <input-file>
 

@@ -1,4 +1,4 @@
-#!/bin/env python2
+#!/bin/env python3
 try:
     from  gaussian_manage  import print_Error
     from  gaussian_manage  import print_List
@@ -14,8 +14,8 @@ except:
             ModuDir=tmpf.readline().strip()                              # STRING, PATH of my modules
             sys.path.append(ModuDir)                                     # Append it into "sys.path"
     else:
-        print 'Error in loading \"$HOME/.xdh_modules_path\" \n'+\
-            'which contains the absolute path for the relevant py modules'
+        print(('Error in loading \"$HOME/.xdh_modules_path\" \n'+\
+            'which contains the absolute path for the relevant py modules'))
         sys.exit(1)
     from  gaussian_manage  import print_Error
     from  gaussian_manage  import print_List
@@ -53,7 +53,7 @@ class xDH:
                   }
     SP_OptList  = ['IOP(5/33=1)','NoSymm']
 
-    def __init__(self, IOut, GauIO, OptClass, bugctrl=1, gauversion=16):
+    def __init__(self, IOut, GauIO, OptClass, bugctrl=1, gauversion=16, syninterval=12):
         '''\
         Open the current filename, and initialize some variable belonged to current object\
         ''' 
@@ -68,7 +68,7 @@ class xDH:
         self.IPrint     = bugctrl
         self.OptClass   = OptClass
         self.GauVersion = gauversion
-        self.FlushInverval = 12
+        self.SyncInterval = syncinterval
         self.WorkDir    = getcwd().strip()                           # STRING, current DIR 
 
         self.xDHPara    = []
@@ -77,7 +77,7 @@ class xDH:
         self.TurnOn     = False                                      # Turn on xDH scheme or Not
         tmpList         = []
         for option in GauIO.OptionList:
-            for key in xDH.xDHDict.keys():
+            for key in list(xDH.xDHDict.keys()):
                 p1 = compile(key.lower())
                 tmpOption=option.split('/')
                 p1p = p1.match(tmpOption[0].strip().lower())
@@ -215,8 +215,8 @@ class xDH:
             else:
                 pass
             return
-        print('Error happens in cut_Log() to open %s/Job_%s.log' \
-                % (currdir.value, self.GauIO.JobName))
+        print(('Error happens in cut_Log() to open %s/Job_%s.log' \
+                % (currdir.value, self.GauIO.JobName)))
         return
     def run_Job(self,sync=True):
         '''\
@@ -225,6 +225,7 @@ class xDH:
         from os     import remove
         from os     import removedirs
         from os     import listdir
+        from os.path import isfile
         from multiprocessing    import Process, Manager
         from time               import sleep                         # sync log file by threads
         if sync==True:
@@ -236,14 +237,17 @@ class xDH:
                         args=(self.GauVersion,SyncValue))
                 MainJob.start()
                 while MainJob.is_alive():
-                    sleep(self.FlushInverval)
+                    if not isfile('%s/Job_%s.log' \
+                            %(SyncValue.value,self.GauIO.JobName)):
+                            sleep(self.SyncInterval)
+                            continue
                     #print(Pos.value, SyncValue.value)
                     SyncJob = Process(target = self.cut_Log,
                         args=(Pos,SyncValue))
                     SyncJob.start()
                     SyncJob.join()
                     print('sync log during Gaussian procedure')
-                    sleep(self.FlushInverval)
+                    sleep(self.SyncInterval)
                 else:
                     #SyncValue.value   = './'
                     SyncJob = Process(target = self.cut_Log,
