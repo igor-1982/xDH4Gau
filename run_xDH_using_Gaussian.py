@@ -70,8 +70,8 @@ def parse_input(argv,version):
         print("Try 'run_xDH_using_Gaussian.py --help' for more information")
         sys.exit(1)
     if '-v' in tmpargv or '--version' in tmpargv:
-        tmpS ='run_xDH_using_Gaussian.py (coded by Python 2x) V%s\n' %(version)
-        tmpS = tmpS + 'Copyright (C) 2017 Free Software Foundation, Inc.\n'
+        tmpS ='run_xDH_using_Gaussian.py (powered by Python 3.x) V%s\n' %(version)
+        tmpS = tmpS + 'Copyright (C) 2021 the XDFT@Fudan research group.\n'
         tmpS = tmpS + 'License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.\n'
         tmpS = tmpS + 'This is free software: you are free to change and redistribute it.\n'
         tmpS = tmpS + 'There is NO WARRANTY, to the extent permitted by law.\n'

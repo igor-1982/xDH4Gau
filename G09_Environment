@@ -23,7 +23,7 @@ fi
 
 
 #================================================
-# The rest part does not need the change
+# No change is required for the rest part
 #================================================
 TDWDD=$GAUSS_SCRDIR
 # get the postfix of the input file

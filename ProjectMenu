@@ -1,6 +1,7 @@
 xDH4Gau=xDH4Gau {
- main="/share/home/wenxinzy/export/xDH4Gau" {
+ main="/home/igor/Documents/Package-Pool/xDH4Gau" {
   README
+  README_CN
   Usage
   config
   run_xDH_using_Gaussian.py

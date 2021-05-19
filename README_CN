@@ -1,0 +1,54 @@
+xDH4Gau软件包安装和使用简介（中文）
+
+=======
+ 安装
+=======
+准备：xDH4Gau依赖Bash、Python3和Gaussian xx (xx=03, 09或16中的任意一个版本)
+      请确认Bash、Python3和Gaussian已在本地安装。
+      注意：目前xDH4Gau的开发与维护仅支持Linux操作系统。
+
+1-1 ：进入xDH4Gau目录[xDH4Gau]，执行'bash ./config'
+
+1-2 ：按照本地Gaussian xx (xx=03，09和/或16) 程序的环境变量，
+      编辑[xDH4Gau]/Gxx_Environment文件中环境设置部分的相关代码:
+      #================================================
+      # System-dependent setting parameters, which 
+      # should be defined by the users
+      #================================================
+      export g16root='Gaussian 16的目录'
+      . $g16root/g16/bsd/g16.profile
+      if [ ! -d "/scratch/scr/$USER" ]; then
+         mkdir -p /scratch/scr/$USER
+      fi
+      export GAUSS_SCRDIR='Gaussian计算的中间数据存储目录'
+      if [ ! -d "$GAUSS_SCRDIR" ]; then
+         mkdir -p $GAUSS_SCRDIR
+      fi
+      #================================================
+      注：Gxx_Environment是xDH4Gau调用Gaussian xx程序的主要接口。
+      
+
+=======
+ 使用 
+=======
+准备：用户须有基本的Gaussian xx程序使用经验。
+      xDH4Gau使用与标准的Gaussian xx的使用高度类似。
+2-1 ：a) 标准Gaussian xx程序通常是命名为gxx (xx=03,09或16）
+      b) 对于任意给定体系，使用B3LYP方法和6-311+G(d,p)的Keyword
+         设置为：
+         B3LYP/6-311+G(d,p)
+      c) 创建输入卡Test.gjf, 调用标准的Gaussian xx的执行命令:
+         >: gxx Test.gjf
+      d) 输出文件为Test.log
+2-2 ：a) xDH4Gau程序是run_xDH_using_Gaussian.py --gaussian-version=xx
+         注：--gaussian-version=xx定义调用的Gaussian程序版本
+             缺省设置为--gaussian-version=16 即Gaussian 16
+      b) 对于任意给定体系，使用XYG3方法和6-311++G(3df,2p)的Keyword
+         设置为：
+         XYG3/6-311++G(3df,2p)
+         注：缺省xDH方法计算使用冻心近似（Frozen core）
+             若采用全电子相关能，相关的Keyword设置为：
+             XYG3(full)/6-311++G(3df,2p)
+      c) 创建输入卡Test.gjf, 调用xDH4Gau的执行命令:
+         >: run_xDH_using_Gaussian.py --gaussian-version=xx Test.gjf
+      d) 输出文件为Test.xDH
