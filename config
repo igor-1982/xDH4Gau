@@ -27,9 +27,7 @@ echo "   interface to call the relevant Gaussian packages (G03, G09, and/or G16)
 echo "   At least one of the aforementioned Gaussian packages must be installed."
 echo " "
 
-if [[ ! -d "${HOME}/bin" ]]; then
-	make -p ${HOME}/bin
-fi
+mkdir -p ${HOME}/bin
 
 if [ -e $HOME/bin/run_xDH_using_Gaussian.py ]; then
     rm -f $HOME/bin/run_xDH_using_Gaussian.py
