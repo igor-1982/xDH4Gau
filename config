@@ -19,7 +19,7 @@ fi
 
 echo "================================================================================"
 echo "$modulespath" > $HOME/.xdh_modules_path
-echo "1) $HOME/.xdh_modules_path has beed created to save the absolute path to"
+echo "1) $HOME/.xdh_modules_path is created to save the absolute path to"
 echo "   the relevant modules."
 echo " "
 echo "2) `cat ~/.xdh_modules_path`/Gxx_Environment (with xx=03, 09, or 16) are the"
@@ -46,5 +46,6 @@ echo " "
 echo "Usage :: run_xDH_using_Gaussian.py [options] file."
 echo "Try 'run_xDH_using_Gaussian.py --help for more informations "
 echo "More information could be found in $modulespath/README"
+echo "更多中文安装和使用说明见$modulespath/README_CN"
 echo "================================================================================"
 
