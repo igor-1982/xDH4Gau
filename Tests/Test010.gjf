@@ -1,7 +1,7 @@
 %chk=Test001.chk
 # XYG3(full)/6-311+G(3df,2p) sp scf=tight scrf(pcm,solvent=water)
 
-Test for normal Cartesian geometry input ::
+Test for the PCM calculation ::
 ==----------------------------------------------------------------------------==
   E(B3LYP)    =     -56.59192497 A.U.    E(XYG3)     =     -56.56104009 A.U.
 ==----------------------------------------------------------------------------==
