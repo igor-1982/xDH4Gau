@@ -587,8 +587,8 @@ class GauIO:
         self.MachineList= []                                         # List, machine commands
         self.OptionList    = []                                         # List, options
         self.KickOptionList=['nonstd']                               # Default disable options
-        self.MoreOptionDict={'checkpoint':0,'allcheck':0,'fchk=all':0,
-                'extraoverlay':0,'%chk': 0}                          # Dict., options complicated
+        self.MoreOptionDict={'checkpoint':0,'check':0,'allcheck':0,
+                'fchk=all':0,'extraoverlay':0,'%chk': 0}             # Dict., options complicated
         self.ExOvList    = []
         self.TitleList    = []                                         # List of this job title
         self.Charge    = ''                                             # Input Chage
@@ -707,19 +707,33 @@ class GauIO:
         #
         #Then to determine the complicated option initialization
         #
-        for key,value in list(self.MoreOptionDict.items()):
+        tmpKeys = list(self.MoreOptionDict.keys())
+        for key in tmpKeys:
             self.MoreOptionDict[key]=0
-        for key,value in list(self.MoreOptionDict.items()):
-            for option in self.OptionList:
-                if option.lower().find(key)!=-1:
-                    self.MoreOptionDict[key]=1
+        for option in self.OptionList:
+            tmpKey=option.strip().lower().split('=')[-1]
+            if tmpKey in tmpKeys:
+                self.MoreOptionDict[tmpKey]=1
+        #for key,value in list(self.MoreOptionDict.items()):
+        #    for option in self.OptionList:
+        #        if option.lower().find(key)!=-1:
+        #            self.MoreOptionDict[key]=1
         if self.MoreOptionDict['checkpoint']==1:                     # To make sure that: 
             for option in self.OptionList:                           # Check "geom=checkpoint"
-                if option.find('checkpoint')!=-1:
-                    if option.find('geom')!=-1:
-                        self.MoreOptionDict['checkpoint']=1
-                    else:
-                        self.MoreOptionDict['checkpoint']=0
+                tmpList = option.strip().lower().split('=')
+                if len(tmpList)!=2: continue
+                if tmpList[-1]=='checkpoint' and tmpList[0]=='geom':
+                    self.MoreOptionDict['checkpoint']=1
+                    break
+            else:
+                self.MoreOptionDict['checkpoint']=0
+        if self.MoreOptionDict['check']==1:                          # To make sure that: 
+            for option in self.OptionList:                           # Check "geom=check"
+                tmpList = option.strip().lower().split('=')
+                if len(tmpList)!=2: continue
+                if tmpList[-1]=='check' and tmpList[0]=='geom':
+                    self.MoreOptionDict['checkpoint']=1
+                    break
         #
         #Now get the addtion iop command by option "extraoverlay"
         #
@@ -802,9 +816,8 @@ class GauIO:
                 self.RestList=self.f.readlines()
                 if self.IPrint>=1:
                     print_String(self.IOut,
-                        '\"Geom=CheckPoint\" is specified,'+\
-                        'then molecular geometry is loaded'+\
-                        ' in the CheckFile',1)
+                        'Molecular geometry will be loaded'+\
+                        ' from the CheckFile',1)
                 if self.IPrint>=2:
                     print_List(self.IOut,self.RestList,1)
             else:

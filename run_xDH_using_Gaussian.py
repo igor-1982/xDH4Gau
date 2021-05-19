@@ -35,7 +35,8 @@ else:
 #
 
 def prepare_Info(version):
-    info    = ['#Filename:  xDH',
+    info    = [\
+		'#Program :  xDH4Gau',
         '#Authors :  Igor Ying Zhang, Xin Xu',
         '#Version :  %s' % version,
         '#Purpose :  1) Perform XYG3-type doubly hybrid (xDH) calculations using the',
@@ -164,8 +165,8 @@ def run_xDH(argv=None):
 
     OptClass    = gaum.OptHandle(iout,MainIO,iprint)
     R5Class    = xDH.xDH(iout,MainIO,OptClass,iprint,__gaussian__,syncinterval)
-    if not MainIO.CartesianFlag:
-        MainIO.collect_Geom()
+    #if not MainIO.CartesianFlag:
+    #    MainIO.collect_Geom()
     #DFTDClass    = gaum.DFTD(iout,MainIO,OptClass,iprint)
     #if DFTDClass.PureDisp:
     #    DFTDClass.DispClass.get_EngyReal()                           # Get classical disp. engy.
@@ -202,7 +203,7 @@ def run_xDH(argv=None):
                     +' in this version')
     else:
         print_Error(iout, 
-            'Normal Gaussian-Job doesn\'t need the xDH package') 
+            'Normal Gaussian job does not need the xDH4Gau package') 
 
     return
 
