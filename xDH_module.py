@@ -185,16 +185,28 @@ class xDH:
 
         if not self.OptClass.Opt:                                    # For SG Calc::GauIO.EngyReal
             self.collect_xDH_component()
+            # now print the energies of the scf procedure and the selected xDH
+            tmpEnergy = self.EnoXC
+            for x,y in zip(self.ExcList,xDH.xDHDict[self.xDH][2:]):
+                tmpEnergy = tmpEnergy + x*y
+            print_String(self.IOut,
+                'E(%s)%s= %16.8f A.U.    E(%s)%s= %16.8f A.U.'  
+                %(self.Method,' '*(9-len(self.Method)),\
+                self.EngySCF,\
+                self.xDH,' '*(9-len(self.xDH)),\
+                tmpEnergy),2)
+            if len(xDH.xDHFamily[self.xDHPara[1]])>1:
+                print_String(self.IOut,'%s belongs to the family of %s'
+                        % (self.xDH, self.xDHPara[1]),1)
             for xMethod in xDH.xDHFamily[self.xDHPara[1]]:
+                if xMethod.lower() == self.xDH.lower(): continue
                 tmpEnergy = self.EnoXC
                 #print(xDH.xDHDict[xMethod][2:])
                 for x,y in zip(self.ExcList,xDH.xDHDict[xMethod][2:]):
                     tmpEnergy = tmpEnergy + x*y
                 print_String(self.IOut,
-                    'E(%s)%s= %16.8f A.U.    E(%s)%s= %16.8f A.U.'  
-                    %(self.Method,' '*(9-len(self.Method)),\
-                    self.EngySCF,\
-                    xMethod,' '*(9-len(xMethod)),\
+                    'E(%s)%s= %16.8f A.U.'  
+                    %(xMethod,' '*(9-len(xMethod)),\
                     tmpEnergy),1)
         return self.GauIO.EngyReal
     def cut_Log(self,pos,currdir):
@@ -334,6 +346,21 @@ class xDH:
                     % (self.GauIO.JobName))
         #Now re-order the xDH components:
         self.EnoXC = self.xDHComp[0][0]
+
+        if self.GauIO.MoreOptionDict['scrf']!=0:
+            tmpP = 'Erf\(P\)=\s*(?P<scrf>-?\d*.\d*)'
+            p6   = compile(tmpP)
+            p6p  = p6.findall(lsf)
+            if p6p:
+                self.SCRF = float(p6p[-1])
+                print_String(self.IOut,
+                    'Solvation energy is considered by %s'
+                    % self.GauIO.MoreOptionDict['scrf'],1)
+                self.EnoXC =  self.EnoXC + self.SCRF
+            else:
+                print_Error(self.IOut,\
+                'Error happens in collecting the solvation energy from %s/Job_%s.log' \
+                        % (self.GauIO.JobName))
                        
         self.ExcList = [self.xDHComp[0][1],       #Ex[HF]
                         self.xDHComp[1][1],       #Ex[LDA]

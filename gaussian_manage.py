@@ -584,11 +584,11 @@ class GauIO:
             #        % self.JobName,2)
 
 
-        self.MachineList= []                                         # List, machine commands
-        self.OptionList    = []                                         # List, options
+        self.MachineList=[]                                          # List, machine commands
+        self.OptionList= []                                          # List, options
         self.KickOptionList=['nonstd']                               # Default disable options
         self.MoreOptionDict={'checkpoint':0,'check':0,'allcheck':0,
-                'fchk=all':0,'extraoverlay':0,'%chk': 0}             # Dict., options complicated
+                'scrf':0,'fchk=all':0,'extraoverlay':0,'%chk': 0}    # Dict., options complicated
         self.ExOvList    = []
         self.TitleList    = []                                         # List of this job title
         self.Charge    = ''                                             # Input Chage
@@ -714,10 +714,10 @@ class GauIO:
             tmpKey=option.strip().lower().split('=')[-1]
             if tmpKey in tmpKeys:
                 self.MoreOptionDict[tmpKey]=1
-        #for key,value in list(self.MoreOptionDict.items()):
-        #    for option in self.OptionList:
-        #        if option.lower().find(key)!=-1:
-        #            self.MoreOptionDict[key]=1
+                continue
+            tmpKey=option.strip().lower().split('(')[0]
+            if tmpKey in tmpKeys:
+                self.MoreOptionDict[tmpKey]=1
         if self.MoreOptionDict['checkpoint']==1:                     # To make sure that: 
             for option in self.OptionList:                           # Check "geom=checkpoint"
                 tmpList = option.strip().lower().split('=')
@@ -734,6 +734,13 @@ class GauIO:
                 if tmpList[-1]=='check' and tmpList[0]=='geom':
                     self.MoreOptionDict['checkpoint']=1
                     break
+        if self.MoreOptionDict['scrf']==1:
+            for option in self.OptionList:
+                if option.lower().find('scrf')!=-1:
+                    self.MoreOptionDict['scrf']=option
+                    break
+            else:
+                self.MoreOptionDict['scrf']=='unknown solvation'
         #
         #Now get the addtion iop command by option "extraoverlay"
         #

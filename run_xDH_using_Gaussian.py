@@ -36,7 +36,7 @@ else:
 
 def prepare_Info(version):
     info    = [\
-		'#Program :  xDH4Gau',
+        '#Program :  xDH4Gau',
         '#Authors :  Igor Ying Zhang, Xin Xu',
         '#Version :  %s' % version,
         '#Purpose :  1) Perform XYG3-type doubly hybrid (xDH) calculations using the',
@@ -153,8 +153,8 @@ def run_xDH(argv=None):
         print_List(iout,__info__,2,'%s' % '-'*76+'==')               # Writing the package info.
 
     print_String(iout,
-			'Start the job of "%s" using the Gaussian %02i package'
-			% (FileName,__gaussian__),2)
+            'Start the job of "%s" using the Gaussian %02i package'
+            % (FileName,__gaussian__),2)
     MainIO    = gaum.GauIO(iout,'%s%s' %(Name,extension),iprint)
 
     MainIO.KickOptionList    = ['extraoverlay','oniom','opt']         # Disable options for xDH
