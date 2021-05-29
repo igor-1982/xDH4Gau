@@ -18,14 +18,15 @@ xDH4Gau软件包安装和使用简介（中文）
       export g16root='Gaussian 16的目录'
       . $g16root/g16/bsd/g16.profile
       if [ ! -d "/scratch/scr/$USER" ]; then
-         mkdir -p /scratch/scr/$USER
+         mkdir /scratch/scr/$USER
       fi
       export GAUSS_SCRDIR='Gaussian计算的中间数据存储目录'
       if [ ! -d "$GAUSS_SCRDIR" ]; then
-         mkdir -p $GAUSS_SCRDIR
+         mkdir $GAUSS_SCRDIR
       fi
       #================================================
-      注：Gxx_Environment是xDH4Gau调用Gaussian xx程序的主要接口。
+      注：1) Gxx_Environment是xDH4Gau调用Gaussian xx程序的主要接口。
+          2) 在目前版本的xDH4Gau中，完成每次计算之后，我们将会删除GAUSS_SCRDIR目录。
       
 
 =======

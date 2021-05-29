@@ -50,8 +50,8 @@
   #           #=========================================================#
   #         
   #           To perform the XYG3 calculation, simply replace the keyword
-  #           of "b3lyp" by "xyg3". The results are collected in the output 
-  #           file with postfix of '.xDH'
+  #           of "b3lyp" by "xyg3". Results are collected in the output 
+  #           file with the postfix of '.xDH'
   #           #=========================================================#
   #           #    %nproc=8                                             #
   #           #    #p xyg3/6-311+G(3df,2p) scf=tight                    #
