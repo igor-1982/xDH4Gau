@@ -13,11 +13,11 @@
 export g03root=/share/apps/gaussian/g03.E01
 . $g03root/g03/bsd/g03.profile
 if [ ! -d "/scratch/scr/$USER" ]; then
-   mkdir -p /scratch/scr/$USER
+   mkdir /scratch/scr/$USER
 fi
 export GAUSS_SCRDIR=/scratch/scr/$USER/$LSB_JOBID
 if [ ! -d "$GAUSS_SCRDIR" ]; then
-   mkdir -p $GAUSS_SCRDIR
+   mkdir $GAUSS_SCRDIR
 fi
 #================================================
 

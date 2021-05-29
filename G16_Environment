@@ -13,11 +13,11 @@
 export g16root=/share/apps/gaussian/G16B01/AVX2
 . $g16root/g16/bsd/g16.profile
 if [ ! -d "/scratch/scr/$USER" ]; then
-   mkdir -p /scratch/scr/$USER
+   mkdir /scratch/scr/$USER
 fi
 export GAUSS_SCRDIR=/scratch/scr/$USER/$LSB_JOBID
 if [ ! -d "$GAUSS_SCRDIR" ]; then
-   mkdir -p $GAUSS_SCRDIR
+   mkdir $GAUSS_SCRDIR
 fi
 #================================================
 
