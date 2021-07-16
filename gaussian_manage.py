@@ -1117,45 +1117,50 @@ class GauIO:
         from os import remove
         from os import chdir
         from os import listdir
+        from os import rename
         from os.path    import exists
         from os.path    import isfile
         from os import getpid                                        # To make more then 2 jobs
+        import shutil
+        import subprocess
                                                                      # running in one DIR
         CurrGID = getpid()
         CurrScr = '%s/.script%s' %(self.WorkDir,CurrGID)
-        if not exists('%s' %CurrScr):
-            mkdir('%s' %CurrScr)                                    # Creat the current work dir
-        system('mv Job_%s.com %s/Job_%s.com'
-            %(self.JobName, CurrScr, self.JobName))
-        system('cp %s/ChkReplace.py %s/ ' 
-                % (self.ModuDir,self.WorkDir)) # ChkReplace.py for chkpath
+        if not exists(CurrScr):
+            mkdir(CurrScr)                                    # Creat the current work dir
+        src = 'Job_%s.com' % self.JobName
+        dst = '%s/Job_%s.com' % (CurrScr, self.JobName) 
+        rename(src, dst)
+        src = '%s/ChkReplace.py' % self.ModuDir
+        dst = '%s/ChkReplace.py' % self.WorkDir
+        shutil.copy2(src, dst) # ChkReplace.py for chkpath
 
         #print('Script is %s' %CurrScr)
         #print('self.ModuDir %s' %self.ModuDir)
         if sync!=None:                                               # Message CurrScr between 
             sync.value  = '%s' % CurrScr                             #   threads
 
+        dst = '%s/Job_%s.com' % (CurrScr, self.JobName) 
         if iop==0:                                                   # normal gaussian calculation
             #chdir(CurrScr)
-            system('%s/Gau_Environment %s/Job_%s.com'
-                % (self.ModuDir, CurrScr, self.JobName))
+            exe = '%s/Gau_Environment' % self.ModuDir
             #chdir(self.WorkDir)
         elif iop==3:                                                 # just g03, for R5DFT class
             #chdir(CurrScr)
-            system('%s/G03_Environment %s/Job_%s.com'
-                % (self.ModuDir, CurrScr, self.JobName))
+            exe = '%s/G03_Environment' % self.ModuDir
             #chdir(self.WorkDir)
         elif iop==9:                                                 # just g09, for R5DFT class
             #chdir(CurrScr)
-            system('%s/G09_Environment %s/Job_%s.com'
-                % (self.ModuDir, CurrScr, self.JobName))
-        elif iop==16:                                                 # just g16, for R5DFT class
+            exe = '%s/G09_Environment' % self.ModuDir
+        elif iop==16:                                                # just g16, for R5DFT class
             #chdir(CurrScr)
-            system('%s/G16_Environment %s/Job_%s.com'
-                % (self.ModuDir, CurrScr, self.JobName))
+            exe = '%s/G16_Environment' % self.ModuDir
+        else:
+            raise RuntimeError('invalid Gaussian version %s' % iop)
+        subprocess.call([exe, dst])
 
-        system('cp %s/Job_%s.log Job_%s.log'
-            %(CurrScr, self.JobName, self.JobName))
+        shutil.copy2('%s/Job_%s.log' % (CurrScr, self.JobName),
+                'Job_%s.log' % self.JobName)
         #if self.MoreOptionDict['%chk']==1:                            # Do not save chk
         #    remove('%s.chk' % self.ChkName)
         remove('ChkReplace.py')
