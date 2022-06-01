@@ -48,8 +48,8 @@ class xDH:
 
                                                                      # For SP calc.
     SP_ExOvLay  = {\
-            'AE':['8/7=1,10=90/1;','9/16=-3/6;','6//8;'],\
-            'FC':['8/7=1,10=4/1;','9/16=-3/6;','6//8;']\
+            'AE':['8/7=1,10=90/1;','9/16=-1/6;','6//8;'],\
+            'FC':['8/7=1,10=4/1;','9/16=-1/6;','6//8;']\
                   }
     SP_OptList  = ['IOP(5/33=1)','NoSymm']
 
@@ -258,7 +258,7 @@ class xDH:
                         args=(Pos,SyncValue))
                     SyncJob.start()
                     SyncJob.join()
-                    print('sync log during Gaussian procedure')
+                    #print('sync log during Gaussian procedure')
                     sleep(self.SyncInterval)
                 else:
                     #SyncValue.value   = './'
@@ -266,7 +266,7 @@ class xDH:
                         args=(Pos,SyncValue))
                     SyncJob.start()
                     SyncJob.join()
-                    print('sync log after Gaussian procedure')
+                    #print('sync log after Gaussian procedure')
                 if self.IPrint<2:
                     for tmpFile in listdir('%s' % SyncValue.value):
                         remove('%s/%s' % (SyncValue.value,tmpFile))
